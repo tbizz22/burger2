@@ -1,0 +1,48 @@
+{{!-- index.handlebars --}}
+
+
+<div class="container center-align">
+<div class="row center-align">
+	<div class="col m12 l5 center-align">
+		<div class="row center-align">
+			<div class="col center-align">
+				<h3>Burgers to Eat</h3>
+				{{#each burg}} {{#unless EATEN}} {{> list/burger-block eaten=false}} {{/unless}} {{/each}}
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col m12 l2 center-align">
+		<div class="col center-align">
+			<img class="responsive-img center-align" src="../assets/img/burger.png" alt=""></img>
+		</div>
+	</div>
+
+
+	<div class="col m12 l5 center-align">
+		<div class="col center-align">
+			<h3 class="center-align">Crossed off the list</h3>
+			{{#each burg}} {{#if EATEN}} {{> list/burger-block eaten=true}} {{/if}} {{/each}}
+		</div>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<form>
+			<div class="input-field offset-s1 col s9">
+				<textarea id="newBurger" class="materialize-textarea"></textarea>
+				<label for="newBurger">Add a burger</label>
+			</div>
+			<div class="col s2">
+				<button class="btn waves-effect waves-light" id="bSubmit" type="submit" name="action">Submit
+					<i class="material-icons right">send</i>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
