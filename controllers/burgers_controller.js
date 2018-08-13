@@ -1,52 +1,48 @@
 // burgers_controller.js
 
-var express = require("express");
-var router = express.Router();
+// use sequelize models
+var db = require("../models");
 
-var burg = require("../models/burger.js");
+module.exports = function (app) {
 
-router.get("/", function (req, res) {
-    // get burg here
-    burg.all(function (data) {
-        var burgObject = {
-            burg: data
-        };
-        console.log(burgObject);
-        // draw the page with the burg data
-        res.render("index", burgObject);
-    });
-});
-
-
-router.post("/api/burger", function (req, res) {
-
-    console.log(req.body);
-    burg.create(["burger", "eaten"], [req.body.burger, req.body.eaten], function (result) {
-
-        res.json({
-            id: result.insertId
+    app.get("/", function (req, res) {
+        // get burg here
+        db.Burger.findAll({}).then(function (burgObject) {
+            // draw the page with the burg data
+            res.render("index", {
+                burger: burgObject
+            });
+        }).catch(function (err) {
+            res.json(err);
         });
     });
-});
 
-router.put("/api/burger/:id", function (req, res) {
-    console.log(req.body);
-    var condition = "ID= " + req.params.id;
 
-    burg.update({
-            EATEN: req.body.eaten
-        },
-        condition,
-        function (result) {
-            if (result.changedRows === 0) {
-                return res.status(404).end();
+    app.post("/api/burger", function (req, res) {
+        console.log(req.body);
+        db.Burger.create({
+            burger: req.body.burger,
+            eaten: req.body.eaten
+        }).then(function (burgObject) {
+            res.json(burgObject);
+        }).catch(function (err) {
+            res.json(err)
+        })
+    });
+
+
+    app.put("/api/burger/:id", function (req, res) {
+        console.log(req.body);
+        db.Burger.update({
+           eaten: req.body.eaten
+        }, {
+            where: {
+                id: req.params.id
             }
-            res.status(200).end()
-        }
-    );
-});
-
-
-
-
-module.exports = router;
+        }).then(function (burgObject) {
+            res.json(burgObject);
+        }).catch(function (err) {
+            res.json(err);
+        });
+    });
+};

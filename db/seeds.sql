@@ -1,5 +1,5 @@
 -- seeds.sql
-USE burgers_db;
+USE burgers2_db;
 
 INSERT INTO burgers (burger,eaten) VALUES('Ruta-Bag-A Burger',0);
 INSERT INTO burgers (burger,eaten) VALUES('50 Ways to Leave Your Guava Burger',0);

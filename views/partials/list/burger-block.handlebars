@@ -1,8 +1,8 @@
 
-<div id="burger{{ID}}" class="center-align p10 {{#if eaten}}eaten{{/if}}">
-    {{BURGER}} 
+<div id="burger{{dataValues.id}}" class="center-align p10 {{#if dataValues.eaten}}eaten{{/if}}">
+    {{dataValues.burger}} 
     
     {{#unless eaten}}
-        <button class="ml10 waves-effect btn-small burgerButton" data-id="{{ID}}">Eat It!</button>
+        <button class="ml10 waves-effect btn-small burgerButton" data-id="{{dataValues.id}}">Eat It!</button>
     {{/unless}}
 </div>
