@@ -7,7 +7,11 @@ module.exports = function (app) {
 
     app.get("/", function (req, res) {
         // get burg here
-        db.Burger.findAll({}).then(function (burgObject) {
+        db.Burger.findAll({
+            order: [
+                ["burger", "ASC"]
+            ]
+        }).then(function (burgObject) {
             // draw the page with the burg data
             res.render("index", {
                 burger: burgObject
@@ -34,7 +38,7 @@ module.exports = function (app) {
     app.put("/api/burger/:id", function (req, res) {
         console.log(req.body);
         db.Burger.update({
-           eaten: req.body.eaten
+            eaten: req.body.eaten
         }, {
             where: {
                 id: req.params.id
